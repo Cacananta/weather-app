@@ -15,18 +15,25 @@ export default class Weather extends React.Component {
           <div className="card-body text-primary">
             <div className="row">
               <div className="col text-center">
-                {showContent.weather == 'Clear' ? 
-                <img src="/images/clear.png" alt="sunny" height="50px"/> :
-                showContent.weather == 'Clouds' ?
-                <img src="/images/clouds.png" alt="cloudy" height="50px"/> : 
-                showContent.weather == 'Fog' ?
-                <img src="/images/fog.png" alt="foggy" height="50px"/> :              
-                showContent.weather == 'Rain' ?
-                <img src="/images/rain.png" alt="rainy" height="50px"/> :                
-                showContent.weather == 'Snow' ?
-                <img src="/images/snow.png" alt="snowy" height="50px"/> :
-                <img alt="No weather icon information"></img>}
+                {showContent.weather == 'Clear' ?
+                  <img src="/images/clear.png" alt="sunny" height="50px" /> :
+                  showContent.weather == 'Clouds' ?
+                    <img src="/images/clouds.png" alt="cloudy" height="50px" /> :
+                    showContent.weather == 'Fog' ?
+                      <img src="/images/fog.png" alt="foggy" height="50px" /> :
+                      showContent.weather == 'Rain' ?
+                        <img src="/images/rain.png" alt="rainy" height="50px" /> :
+                        showContent.weather == 'Snow' ?
+                          <img src="/images/snow.png" alt="snowy" height="50px" /> :
+                          showContent.weather == 'Mist' ?
+                            <img src="/images/fog.png" alt="hazy" height="50px" /> :
+                            <img alt="No weather icon information"></img>}
                 <h2 className="card-title text-muted"><strong>{showContent.cityName}</strong></h2>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col text-center">
+                <p className="card-text">{showContent.weather}</p>
               </div>
             </div>
             <div className="row">
@@ -73,4 +80,3 @@ export default class Weather extends React.Component {
     )
   }
 }
-  
