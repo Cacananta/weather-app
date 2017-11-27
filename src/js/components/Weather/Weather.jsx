@@ -25,7 +25,7 @@ export default class Weather extends React.Component {
                 <img src="/images/rain.png" alt="rainy" height="50px"/> :                
                 showContent.weather == 'Snow' ?
                 <img src="/images/snow.png" alt="snowy" height="50px"/> :
-                <img></img>}
+                <img alt="No weather icon information"></img>}
                 <h2 className="card-title text-muted"><strong>{showContent.cityName}</strong></h2>
               </div>
             </div>

@@ -42,8 +42,7 @@ export default class CitySearch extends React.Component {
   }
 
   searchButton(e) {
-    const { cities } = this.props
-    const { dispatch } = this.props;
+    const { cities, dispatch } = this.props;
     let cityName = e.target.textContent
     cities.map(city => city.cityName == cityName ?
       Axios.get('/api/' + cityName)
@@ -76,9 +75,7 @@ export default class CitySearch extends React.Component {
         <div className="row">
           <div className="col my-4">
             {cities && cities.map(city =>
-              <button id={city.id} onClick={this.searchButton} key={city.id} type="button" className="btn btn-primary mx-1">{city.cityName}</button>
-            )
-            }
+              <button id={city.id} onClick={this.searchButton} key={city.id} type="button" className="btn btn-primary mx-1">{city.cityName}</button>)}
           </div>
         </div>
         <div className="row">
