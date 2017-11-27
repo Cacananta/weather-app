@@ -3,7 +3,8 @@ import Weather from './Weather';
 
 function MapStoreToProps(store) {
   return {
-    something: 'hello world!'
+    cities: store.citySearch.cities,
+    showContent: store.citySearch.showContent
   }
 }
 

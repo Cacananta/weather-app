@@ -6,32 +6,26 @@ export default class History extends React.Component {
   }
 
   render() {
+    const { cities } = this.props;
     return (
       <div className="col-6">
         <div className="card border-primary mb-3">
           <div className="card-header">Search History</div>
           <div className="card-body text-primary">
             <ul className="list-group">
-              <li className="list-group-item">
-                <div className="row">
-                  <div className="col">
-                    San Diego
+              {cities.map(city => 
+                <li key={city.id} className="list-group-item">
+                  <div className="row">
+                    <div className="col">
+                      {city.cityName}
+                    </div>
+                    <div className="col">
+                      {city.dateAndTime}
+                    </div>
                   </div>
-                  <div className="col">
-                    Date and Time
-                  </div>
-                </div>
-              </li>
-              <li className="list-group-item">
-                <div className="row">
-                  <div className="col">
-                    Another City
-                  </div>
-                  <div className="col">
-                    Date and Time
-                  </div>
-                </div>
-              </li>
+                </li>
+              )
+              }
             </ul>
           </div>
         </div>

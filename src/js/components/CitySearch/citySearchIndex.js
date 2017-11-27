@@ -3,7 +3,8 @@ import CitySearch from './CitySearch';
 
 function mapStoreToProps(store) {
   return {
-    cities: store.citySearch
+    cities: store.citySearch.cities,
+    showContent: store.citySearch.cities
   };
 }
 

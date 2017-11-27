@@ -1,15 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
-import { connect } from 'react-redux'
-import { addCity } from './citySearchActions'
-
-var dateAndTime = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+import { addCity, showCity } from './citySearchActions';
 
 export default class CitySearch extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleInputClick = this.handleInputClick.bind(this);
+    this.searchButton = this.searchButton.bind(this)
     this.kelvinToFahrenheit = this.kelvinToFahrenheit.bind(this);
   }
 
@@ -17,44 +15,70 @@ export default class CitySearch extends React.Component {
     return (1.8 * (kelvin - 273) + 32).toFixed(2);
   }
 
-  handleInputClick(e) {
+  handleInputClick() {
     const { dispatch } = this.props;
-    console.log(this.props);
     let cityName = document.getElementById('cityInput').value;
     Axios.get('/api/' + cityName)
       .then((res) => {
         const response = res.data;
         const newCity = {
           cityName: response.name,
-          weather: response.weather.main,
+          weather: response.weather[0].main,
           lat: response.coord.lat,
           lon: response.coord.lon,
+          pressure: response.main.pressure,
           temp: this.kelvinToFahrenheit(response.main.temp),
           max: this.kelvinToFahrenheit(response.main.temp_max),
           min: this.kelvinToFahrenheit(response.main.temp_min),
           humidity: response.main.humidity,
           wind: response.wind.speed,
-          dateAndTime: dateAndTime
+          dateAndTime: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+          id: response.id
         }
-        console.log(newCity);
         dispatch(addCity(newCity));
-      })
-      .catch((err) => {
-        console.log(err);
-        // alert('Uh oh! We can\'t find ' + cityName + '. Please enter another city location. Error: ' + err);
-      })
+        dispatch(showCity(newCity));
+      });
+    document.getElementById('cityInput').value = '';
+  }
+
+  searchButton(e) {
+    const { cities } = this.props
+    const { dispatch } = this.props;
+    let cityName = e.target.textContent
+    cities.map(city => city.cityName == cityName ?
+      Axios.get('/api/' + cityName)
+        .then((res) => {
+          const response = res.data;
+          const newCity = {
+            cityName: response.name,
+            weather: response.weather[0].main,
+            lat: response.coord.lat,
+            lon: response.coord.lon,
+            pressure: response.main.pressure,
+            temp: this.kelvinToFahrenheit(response.main.temp),
+            max: this.kelvinToFahrenheit(response.main.temp_max),
+            min: this.kelvinToFahrenheit(response.main.temp_min),
+            humidity: response.main.humidity,
+            wind: response.wind.speed,
+            dateAndTime: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+            id: response.id
+          }
+          dispatch(showCity(newCity));
+        })
+      : city
+    )
   }
 
   render() {
-    // const { cities, dispatch } = this.props;
+    const { cities, showDisplay } = this.props;
     return (
-      <div>
+      <div >
         <div className="row">
           <div className="col my-4">
-            <button type="button" className="btn btn-primary mx-1">San Diego</button>
-            <button type="button" className="btn btn-primary mx-1">New York</button>
-            <button type="button" className="btn btn-primary mx-1">Hong Kong</button>
-            <button type="button" className="btn btn-primary mx-1">Yosemite</button>
+            {cities && cities.map(city =>
+              <button id={city.id} onClick={this.searchButton} key={city.id} type="button" className="btn btn-primary mx-1">{city.cityName}</button>
+            )
+            }
           </div>
         </div>
         <div className="row">
@@ -65,7 +89,7 @@ export default class CitySearch extends React.Component {
             </span>
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 }

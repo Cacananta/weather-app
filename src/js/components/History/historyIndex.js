@@ -3,7 +3,8 @@ import History from './History';
 
 function mapStoreToProps(store) {
   return {
-    something: 'hello world!'
+    cities: store.citySearch.cities,
+    showDisplay: store.citySearch.showDisplay
   }
 }
 
