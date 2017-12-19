@@ -75,7 +75,7 @@ export default class CitySearch extends React.Component {
         <div className="row">
           <div className="col my-4">
             {cities && cities.map(city =>
-              <button id={city.id} onClick={this.searchButton} key={city.id} type="button" className="btn btn-primary mx-1">{city.cityName}</button>)}
+              <button value={city.id} onClick={this.searchButton} key={city.id} type="button" className="btn btn-primary mx-1">{city.cityName}</button>)}
           </div>
         </div>
         <div className="row">

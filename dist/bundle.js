@@ -25744,7 +25744,7 @@ var CitySearch = function (_React$Component) {
             cities && cities.map(function (city) {
               return _react2.default.createElement(
                 'button',
-                { id: city.id, onClick: _this4.searchButton, key: city.id, type: 'button', className: 'btn btn-primary mx-1' },
+                { value: city.id, onClick: _this4.searchButton, key: city.id, type: 'button', className: 'btn btn-primary mx-1' },
                 city.cityName
               );
             })
